@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -25,7 +25,8 @@ class Bureaucrat
         void incrementGrade();
         void decrementGrade();
 
-        void signForm(Form &form);
+        void signForm(AForm &form);
+        void executeForm(AForm const &form) const;
         
         class GradeIsTwoHigh : public std::exception
         {
@@ -38,8 +39,6 @@ class Bureaucrat
             public:
                 virtual const char* what() const throw();
         };
-
-        void executeForm(AForm const &form) const;
 };
 
 std::ostream &operator<<(std::ostream &out, const Bureaucrat &bureaucrat);

@@ -1,20 +1,36 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main() {
+    // Seed random number generator for Robotomy
+    std::srand(std::time(0));
+
     try {
-        Bureaucrat alice("Alice", 10);
-        Bureaucrat bob("Bob", 150);
+        Bureaucrat boss("Boss", 1);
+        Bureaucrat intern("Intern", 150);
+
+        // Create specific forms
+        ShrubberyCreationForm shrub("Home");
+        RobotomyRequestForm robot("Bender");
+        PresidentialPardonForm pardon("Criminal");
+
+        // Intern tries to execute (Fail: not signed)
+        intern.executeForm(shrub);
+
+        // Boss signs everything
+        boss.signForm(shrub);
+        boss.signForm(robot);
+        boss.signForm(pardon);
+
+        // Intern tries to execute again (Fail: grade too low)
+        intern.executeForm(shrub); // Might succeed (exec grade 137 vs intern 150) -> FAIL
         
-        Form taxForm("Tax Form", 20, 50);
-
-        std::cout << taxForm << std::endl;
-
-        bob.signForm(taxForm);
-
-        alice.signForm(taxForm);
-        
-        std::cout << taxForm << std::endl;
+        // Boss executes
+        boss.executeForm(shrub); // Creates file
+        boss.executeForm(robot); // Drilling noise
+        boss.executeForm(pardon); // Zaphod Beeblebrox
     }
     catch (std::exception &e) {
         std::cout << e.what() << std::endl;

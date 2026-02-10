@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-#define FORM_HPP
+#ifndef AFORM_HPP
+#define AFORM_HPP
 
 #include <iostream>
 #include <stdexcept>
@@ -17,16 +17,12 @@ class AForm{
         AForm();
         AForm(const std::string name, const int gradeToSign, const int gradeToExecute);
         AForm(const AForm &other);
-        ~AForm();
+        virtual ~AForm();
         AForm &operator=(const AForm &other);
         const std::string getName() const;
-        void setName(const std::string name);
-        void setIsSigned(bool isSigned);
         bool getIsSigned() const;
         int getGradeToSign() const;
-        void setGradeToSign(const int gradeToSign);
         int getGradeToExecute() const;
-        void setGradeToExecute(const int gradeToExecute);
 
         void beSigned(const Bureaucrat &bureaucrat);
 
@@ -41,10 +37,8 @@ class AForm{
         };
 
         virtual void execute(Bureaucrat const & executor) const = 0;
-
-        void execute(Bureaucrat const & executor) const;
 };
 
-std::ostream &operator<<(std::ostream &out, const Form &form);
+std::ostream &operator<<(std::ostream &out, const AForm &AForm);
 
 #endif
